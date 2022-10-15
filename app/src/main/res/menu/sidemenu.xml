@@ -22,9 +22,13 @@
             android:title="Scan"
             android:icon="@drawable/scan"/>
 
+        <item android:id="@+id/recipes"
+            android:title="Recipies"
+            android:icon="@drawable/recipes_icon"/>
+
         <item android:id="@+id/message"
-            android:icon="@drawable/message"
-            android:title="Messages" />
+            android:icon="@drawable/mail_icon"
+            android:title="Mail" />
 
         <item android:id="@+id/setting"
             android:icon="@drawable/settingimg"

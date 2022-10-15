@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -84,6 +85,15 @@ public class DashBoardFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+//        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                startActivity(new Intent(getActivity(),DashBoardMain.class));
+//            }
+//        };
+//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -327,8 +337,7 @@ public class DashBoardFragment extends Fragment {
                 Log.d("clientMetrics","failure");
                 Toast.makeText(getContext(), "ClientMetrics failed", Toast.LENGTH_SHORT).show();
             }
-        },error -> {
-            Toast.makeText(getContext(),error.toString().trim(),Toast.LENGTH_SHORT).show();})
+        },error -> Log.d("dashBoardFrag", error.toString()))
         {
             @Nullable
             @Override

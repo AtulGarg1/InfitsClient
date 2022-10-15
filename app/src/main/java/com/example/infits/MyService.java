@@ -37,12 +37,14 @@ public class MyService extends Service implements SensorEventListener {
 
     SensorManager sensorManager;
     Sensor stepSensor;
+    PendingIntent pendingIntent = null;
 
     Intent intent = new Intent("com.example.infits");
 
     @Override
     public void onCreate() {
         super.onCreate();
+
     }
 
     @Override
@@ -60,9 +62,9 @@ public class MyService extends Service implements SensorEventListener {
 
         String input = intent.getStringExtra("inputExtra");
 
-        Intent notificationIntent = new Intent(this, DashBoardMain.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+//                0, notificationIntent, 0);
+
 
         return START_NOT_STICKY;
     }
@@ -72,6 +74,8 @@ public class MyService extends Service implements SensorEventListener {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -115,7 +119,7 @@ public class MyService extends Service implements SensorEventListener {
 
             Log.d("step", String.valueOf(FetchTrackerInfos.totalSteps));
             Log.d("stepPre", String.valueOf(FetchTrackerInfos.previousStep));
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                 NotificationChannel chan = new NotificationChannel(
                         "MyChannelId",
                         "My Foreground Service",
@@ -136,6 +140,30 @@ public class MyService extends Service implements SensorEventListener {
                         .setCategory(Notification.CATEGORY_SERVICE)
                         .setChannelId("MyChannelId")
                         .build();
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                    NotificationChannel channel = new NotificationChannel(CHANNEL_ID,TAG,
+//                            NotificationManager.IMPORTANCE_HIGH);
+//                    notificationManager.createNotificationChannel(channel);
+//
+//                    Notification notification = new Notification.Builder(getApplicationContext(),CHANNEL_ID).build();
+//                    startForeground(1, notification);
+//                }
+//                else {
+//
+//                     startForeground(1, notification);
+//                }
+
+//                Intent notificationIntent= new Intent(this, DashBoardMain.class);
+//
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+//                    pendingIntent = PendingIntent.getActivity
+//                            (this, 0, notificationIntent, PendingIntent.FLAG_MUTABLE);
+//                }
+//                else
+//                {
+//                    pendingIntent = PendingIntent.getActivity
+//                            (this, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT);
+//                }
                 startForeground(1, notification);
                 intent.putExtra("steps", FetchTrackerInfos.currentSteps);
                 sendBroadcast(intent);

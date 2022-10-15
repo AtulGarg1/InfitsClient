@@ -1,9 +1,11 @@
 package com.example.infits;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -79,6 +81,15 @@ public class WaterTrackerFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -407,7 +418,12 @@ public class WaterTrackerFragment extends Fragment {
     }
 
     String calculateGoal() {
-        int per = consumedInDay * 100 / goal;
+        int per = 0;
+        try {
+            per = consumedInDay * 100 / goal;
+        } catch (ArithmeticException e) {
+            Log.d("WaterTrackFrag", "Arithmetic Ex, consumedInDay, goal: " + consumedInDay + ", " + goal);
+        }
         System.out.println(per);
         System.out.println(consumedInDay);
         System.out.println(goal);

@@ -75,7 +75,7 @@
         <action
             android:id="@+id/action_aboutUsFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
-            app:popUpTo="@id/settings_graph"/>
+            app:popUpTo="@id/settings_graph" />
     </fragment>
     <fragment
         android:id="@+id/profile2"

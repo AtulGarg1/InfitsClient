@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -88,6 +89,14 @@ GaugeSeekBar  progressBar;
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(getActivity(),DashBoardMain.class));
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -205,11 +214,11 @@ GaugeSeekBar  progressBar;
             }
         });
 
-        Intent serviceIntent = new Intent(getActivity(), MyService.class);
-        serviceIntent.putExtra("goal",goalVal);
-        if (!foregroundServiceRunning()){
-            ContextCompat.startForegroundService(getActivity(), serviceIntent);
-        }
+//        Intent serviceIntent = new Intent(getActivity(), MyService.class);
+//        serviceIntent.putExtra("goal",goalVal);
+//        if (true /*!foregroundServiceRunning()*/){
+//            ContextCompat.startForegroundService(getActivity(), serviceIntent);
+//        }
 
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override

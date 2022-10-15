@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,6 +66,7 @@ public class HeartRate extends Fragment {
 
     Button startListening;
     ImageView heartImageView;
+    ImageButton imgBack;
 
 //    SnakeView snakeView;
 
@@ -137,6 +140,7 @@ public class HeartRate extends Fragment {
         max = view.findViewById(R.id.max);
         avg = view.findViewById(R.id.avg);
         min = view.findViewById(R.id.min);
+        imgBack = view.findViewById(R.id.back_heart);
 
         min.setText(DataFromDatabase.bpmDown);
         avg.setText(DataFromDatabase.bpm);
@@ -286,6 +290,13 @@ public class HeartRate extends Fragment {
                 },1000);
             }
         });
+
+        imgBack.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_heartRate_to_dashBoardFragment);
+            FragmentManager manager = getActivity().getSupportFragmentManager();
+            manager.popBackStack();
+        });
+
         return view;
     }
 
